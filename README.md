@@ -27,6 +27,5 @@ lazy var displayView: WKCImageDisplayView = {
 ```
 通过 ` startDisplay` 和 ` stopDisplay `控制渲染动画.
 
-<p align="center">
-<img src="https://github.com/WKCLoveYang/WKCFaceImageCropper/raw/master/source/1.gif" width="350">
-</p>
+
+[Demo](https://github.com/WKCLoveYang/WKCFaceImageCropper/raw/master/source/1.gif).
