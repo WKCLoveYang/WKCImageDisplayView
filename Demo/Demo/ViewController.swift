@@ -56,8 +56,12 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(CollectionViewCell.classForCoder()), for: indexPath) as! CollectionViewCell
         cell.directin = dataSource[indexPath.row]
-        cell.startDisplay(delay: TimeInterval(indexPath.row))
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell: CollectionViewCell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
+        cell.displayView.startDisplay()
     }
 }
 

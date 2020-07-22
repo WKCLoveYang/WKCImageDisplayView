@@ -13,7 +13,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     static let itemSize: CGSize = CGSize(width: floor((UIScreen.main.bounds.width - 8) / 2.0), height: floor((UIScreen.main.bounds.width - 8) / 2.0))
     
-    private lazy var displayView: WKCImageDisplayView = {
+    lazy var displayView: WKCImageDisplayView = {
         let view = WKCImageDisplayView(frame: CGRect(origin: .zero, size: CollectionViewCell.itemSize))
         view.duration = 0.3
         view.options = .curveLinear
@@ -64,12 +64,7 @@ class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func startDisplay(delay: TimeInterval) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2 + delay) {
-            self.displayView.startDisplay()
-        }
-    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
