@@ -24,10 +24,11 @@ import UIKit
     }
     
     private enum Coordinate: Int {
-        case topLeft    = 0
-        case topRight   = 1
-        case bottomLeft = 2
-        case bottomRight = 3
+        case none       = 0
+        case topLeft    = 1
+        case topRight   = 2
+        case bottomLeft = 3
+        case bottomRight = 4
     }
     
     private lazy var imageView: UIImageView = {
@@ -178,10 +179,10 @@ import UIKit
             if !self.shouldKeepResult {
                 self.contentView.frame = startFrame
             }
-            if finished {
-                if let com = completion {
-                    com()
-                }
+            // 动画结束, 转换回原坐标系
+            self.contentViewTransformCoordinate(coord: .none)
+            if finished, let com = completion {
+                com()
             }
         }
     }
@@ -192,6 +193,12 @@ import UIKit
     private func contentViewTransformCoordinate(coord: Coordinate = .bottomRight) {
         guard let img = image else {
             debugPrint("====== Error: 需要先设置image!!! ======")
+            return
+        }
+        
+        if coord == .none {
+            imageView.image = image
+            contentView.transform = CGAffineTransform.identity
             return
         }
         
