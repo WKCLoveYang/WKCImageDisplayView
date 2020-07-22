@@ -1,0 +1,6 @@
+framework module WKCImageDisplayView {
+  umbrella header "WKCImageDisplayView-umbrella.h"
+
+  export *
+  module * { export * }
+}
