@@ -31,7 +31,7 @@ import UIKit
     }
     
     private lazy var imageView: UIImageView = {
-        let view = UIImageView()
+        let view = UIImageView(frame: bounds)
         view.contentMode = .scaleAspectFill
         return view
     }()
@@ -40,7 +40,9 @@ import UIKit
         view.layer.masksToBounds = true
         return view
     }()
-
+    
+    /// 需要使用坐标初始化
+    /// - Parameter frame: 坐标值
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -48,11 +50,6 @@ import UIKit
         contentView.addSubview(imageView)
     }
 
-    open override func didMoveToSuperview() {
-        imageView.frame = bounds
-        contentView.frame = .zero
-    }
-    
     open override var contentMode: UIView.ContentMode {
         willSet {
             super.contentMode = newValue
@@ -75,7 +72,26 @@ import UIKit
     /// 模式
     @objc public var options: UIView.AnimationOptions = .curveLinear
     /// 类型
-    @objc public var direction: Direction = .appearTopToBottom
+    @objc public var direction: Direction = .appearTopToBottom {
+        willSet {
+            switch newValue {
+            case .appearTopToBottom:
+                contentView.frame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: 0))
+            
+            case .appearBottomToTop:
+                contentView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height), size: CGSize(width: bounds.width, height: 0))
+                
+            case .appearLeftToRight:
+                contentView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: bounds.height))
+            
+            case .appearRightToLeft:
+                contentView.frame = CGRect(origin: CGPoint(x: bounds.width, y: 0), size: CGSize(width: 0, height: bounds.height))
+                
+            default:
+                contentView.frame = bounds
+            }
+        }
+    }
     /// 位移的内容占全部的比例
     @objc public var progress: CGFloat = 1.0
     /// 是否保留动画后的结果, 默认true; 不保留的话, 动画完成后回到初始状态
@@ -87,56 +103,45 @@ import UIKit
     ///   - completion: 完成回调
     @objc public func startDisplay(animation: (() -> ())? = nil,
                                    completion: (() -> ())? = nil) {
-        var startFrame: CGRect = .zero
         var finalFrame: CGRect = bounds
         
         switch direction {
         case .appearTopToBottom:
-            startFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: 0))
             finalFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: bounds.height * progress))
             
         case .appearLeftToRight:
-            startFrame = CGRect(origin: .zero, size: CGSize(width: 0, height: bounds.height))
             finalFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width * progress, height: bounds.height))
             
         case .appearBottomToTop:
             contentViewTransformCoordinate()
-            startFrame = CGRect(origin: CGPoint(x: 0, y: bounds.height), size: CGSize(width: bounds.width, height: 0))
             let height: CGFloat = bounds.height * progress
             finalFrame = CGRect(origin: CGPoint(x: 0, y: bounds.height - height), size: CGSize(width: bounds.width, height: height))
             
         case .appearRightToLeft:
             contentViewTransformCoordinate()
-            startFrame = CGRect(origin: CGPoint(x: bounds.width, y: 0), size: CGSize(width: 0, height: bounds.height))
             let width: CGFloat = bounds.width * progress
             finalFrame = CGRect(origin: CGPoint(x:bounds.width -  width, y: 0), size: CGSize(width: width, height: bounds.height))
             
         case .disappearTopToBottom:
             contentViewTransformCoordinate()
-            startFrame = bounds
             let height: CGFloat = bounds.height * progress
             finalFrame = CGRect(origin: CGPoint(x: 0, y: height), size: CGSize(width: bounds.width, height: bounds.height - height))
             
         case .disappearLeftToRight:
             contentViewTransformCoordinate()
-            startFrame = bounds
             let width: CGFloat = bounds.width * progress
             finalFrame = CGRect(origin: CGPoint(x: width, y: 0), size: CGSize(width: bounds.width - width, height: bounds.height))
             
         case .disappearBottomToTop:
-            startFrame = bounds
-            finalFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: bounds.height * progress))
+            finalFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: bounds.height - bounds.height * progress))
             
         case .disappearRightToLeft:
-            startFrame = bounds
-            finalFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width * progress, height: bounds.height))
+            finalFrame = CGRect(origin: .zero, size: CGSize(width: bounds.width - bounds.width * progress, height: bounds.height))
         
         }
 
-        contentView.frame = startFrame
         displayContentFrame(duration: duration,
                             options: options,
-                            startFrame: startFrame,
                             atFrame: finalFrame,
                             animation: animation,
                             completion: completion)
@@ -157,10 +162,10 @@ import UIKit
     ///   - completion: 完成回调
     private func displayContentFrame(duration: TimeInterval,
                                      options: UIView.AnimationOptions,
-                                     startFrame: CGRect,
                                      atFrame: CGRect,
                                      animation: (() -> ())?,
                                      completion: (() -> ())?) {
+        let startFrame: CGRect = self.contentView.frame
         UIView.animate(withDuration: duration,
                        delay: 0,
                        options: options,

@@ -16,6 +16,7 @@
 		9119CDD324C710FD00268714 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9119CDD124C710FD00268714 /* LaunchScreen.storyboard */; };
 		9119CDDC24C713CE00268714 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9119CDDB24C713CE00268714 /* CollectionViewCell.swift */; };
 		9119CDDE24C7140100268714 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9119CDDD24C7140100268714 /* 1.jpg */; };
+		91CE32F024C7E2E000FE784D /* WKCImageDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE32EF24C7E2E000FE784D /* WKCImageDisplayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9119CDD424C710FD00268714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9119CDDB24C713CE00268714 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		9119CDDD24C7140100268714 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		91CE32EF24C7E2E000FE784D /* WKCImageDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKCImageDisplayView.swift; sourceTree = "<group>"; };
 		AB923F944BB8E00568161869 /* Pods-pod-libs-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pod-libs-Demo.debug.xcconfig"; path = "Target Support Files/Pods-pod-libs-Demo/Pods-pod-libs-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 				9119CDDD24C7140100268714 /* 1.jpg */,
 				9119CDC624C710FB00268714 /* AppDelegate.swift */,
 				9119CDC824C710FB00268714 /* SceneDelegate.swift */,
+				91CE32EF24C7E2E000FE784D /* WKCImageDisplayView.swift */,
 				9119CDCA24C710FB00268714 /* ViewController.swift */,
 				9119CDDB24C713CE00268714 /* CollectionViewCell.swift */,
 				9119CDCC24C710FB00268714 /* Main.storyboard */,
@@ -217,6 +220,7 @@
 				9119CDC724C710FB00268714 /* AppDelegate.swift in Sources */,
 				9119CDDC24C713CE00268714 /* CollectionViewCell.swift in Sources */,
 				9119CDC924C710FB00268714 /* SceneDelegate.swift in Sources */,
+				91CE32F024C7E2E000FE784D /* WKCImageDisplayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

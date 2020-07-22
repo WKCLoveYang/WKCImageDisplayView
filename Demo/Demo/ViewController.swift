@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import WKCImageDisplayView
 
 class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     

@@ -1,20 +1,16 @@
 PODS:
   - SnapKit (5.0.1)
-  - WKCImageDisplayView (0.1.2)
 
 DEPENDENCIES:
   - SnapKit
-  - WKCImageDisplayView
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - SnapKit
-    - WKCImageDisplayView
 
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  WKCImageDisplayView: 129d08adb6d3c2e9001b0dd2bffe436f9a72c1ac
 
-PODFILE CHECKSUM: b44ee99127a85f5b9478f14df32de2624d4e2594
+PODFILE CHECKSUM: a4d4fd07ec1e5b90e53fc58128b80df8917d7a5c
 
 COCOAPODS: 1.9.3

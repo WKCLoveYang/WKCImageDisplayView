@@ -40,7 +40,9 @@ import UIKit
         view.layer.masksToBounds = true
         return view
     }()
-
+    
+    /// 需要使用坐标初始化
+    /// - Parameter frame: 坐标值
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -52,25 +54,6 @@ import UIKit
         willSet {
             super.contentMode = newValue
             imageView.contentMode = newValue
-        }
-    }
-    
-    open override func didMoveToSuperview() {
-        switch direction {
-        case .appearTopToBottom:
-            contentView.frame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: 0))
-        
-        case .appearBottomToTop:
-            contentView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height), size: CGSize(width: bounds.width, height: 0))
-            
-        case .appearLeftToRight:
-            contentView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: bounds.height))
-        
-        case .appearRightToLeft:
-            contentView.frame = CGRect(origin: CGPoint(x: bounds.width, y: 0), size: CGSize(width: 0, height: bounds.height))
-            
-        default:
-            contentView.frame = bounds
         }
     }
     
@@ -89,7 +72,26 @@ import UIKit
     /// 模式
     @objc public var options: UIView.AnimationOptions = .curveLinear
     /// 类型
-    @objc public var direction: Direction = .appearTopToBottom
+    @objc public var direction: Direction = .appearTopToBottom {
+        willSet {
+            switch newValue {
+            case .appearTopToBottom:
+                contentView.frame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: 0))
+            
+            case .appearBottomToTop:
+                contentView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height), size: CGSize(width: bounds.width, height: 0))
+                
+            case .appearLeftToRight:
+                contentView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: bounds.height))
+            
+            case .appearRightToLeft:
+                contentView.frame = CGRect(origin: CGPoint(x: bounds.width, y: 0), size: CGSize(width: 0, height: bounds.height))
+                
+            default:
+                contentView.frame = bounds
+            }
+        }
+    }
     /// 位移的内容占全部的比例
     @objc public var progress: CGFloat = 1.0
     /// 是否保留动画后的结果, 默认true; 不保留的话, 动画完成后回到初始状态
